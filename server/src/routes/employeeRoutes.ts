@@ -12,3 +12,5 @@ employeesRouter.get("/", getEmployees);
 employeesRouter.post("/", createEmployees);
 employeesRouter.put("/:id", updateEmployees);
 employeesRouter.delete("/:id", deleteEmployees);
+
+export default employeesRouter;

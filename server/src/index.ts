@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import multer from "multer";
+import "./config/db.events.js";
 import connectDB from "./config/db.js";
 
 const app = express();

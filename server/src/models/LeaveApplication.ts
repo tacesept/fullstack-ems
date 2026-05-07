@@ -1,4 +1,4 @@
-import { model, models, Schema } from "mongoose";
+import mongoose, { model, models, Schema } from "mongoose";
 
 const leaveApplicationSchema = new Schema({
   employeeId: { type: Schema.Types.ObjectId, ref: "Employee", required: true },
@@ -13,6 +13,6 @@ const leaveApplicationSchema = new Schema({
   },
 });
 
-const LeaveApplication = models.User || model("User", leaveApplicationSchema);
+const LeaveApplication = mongoose.models.User || model("User", leaveApplicationSchema);
 
 export default LeaveApplication;

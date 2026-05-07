@@ -1,4 +1,4 @@
-import { model, models, Schema, Types } from "mongoose";
+import mongoose, { model, models, Schema, Types } from "mongoose";
 import { Department, DEPARTMENTS } from "../constants/departments.js";
 
 interface IEmployee {
@@ -48,6 +48,6 @@ const employeeSchema = new Schema<IEmployee>(
 );
 
 const Employee =
-  models.Employee || model<IEmployee>("Employee", employeeSchema);
+  mongoose.models.Employee || model<IEmployee>("Employee", employeeSchema);
 
 export default Employee;

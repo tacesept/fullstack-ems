@@ -1,4 +1,4 @@
-import { model, models, Schema, Types } from "mongoose";
+import mongoose, { model, Schema, Types } from "mongoose";
 
 interface IAttendance {
   employeeId: Types.ObjectId;
@@ -38,6 +38,6 @@ const attendanceSchema = new Schema<IAttendance>(
 attendanceSchema.index({ employeeId: 1, date: 1 }, { unique: true });
 
 const Attendance =
-  models.User || model<IAttendance>("Attendance", attendanceSchema);
+  mongoose.models.User || model<IAttendance>("Attendance", attendanceSchema);
 
 export default Attendance;

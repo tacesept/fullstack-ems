@@ -7,19 +7,19 @@ import { error } from "node:console";
 export const getEmployees = async (req: Request, res: Response) => {
   try {
     const { department } = req.query;
-    const where = {};
+    const where: Record<string, any> = {};
     if (department) where.department = department;
 
-    const employees = (await Employee.find(where))
-      .toSorted({ createdAt: -1 })
+    const employees = await Employee.find(where)
+      .sort({ createdAt: -1 })
       .populate("userId", "email role")
       .lean();
 
-    const result = employees.map((emp) => ({
+    const result = employees.map((emp: any) => ({
       ...emp,
       id: emp._id.toString(),
       user: emp.userId
-        ? { email: emp.userId.email, role: employees.userId.role }
+        ? { email: emp.userId.email, role: emp.userId.role }
         : null,
     }));
     return res.json(result);
@@ -73,7 +73,7 @@ export const createEmployees = async (req: Request, res: Response) => {
     });
 
     return res.status(201).json({ success: true, employee });
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === 11000) {
       return res.status(400).json({ error: "Email already exists" });
     }
@@ -118,13 +118,13 @@ export const updateEmployees = async (req: Request, res: Response) => {
       employmentStatus: employmentStatus || "ACTIVE",
     });
 
-    const userUpdate = { email };
+    const userUpdate: Record<string, any> = { email };
     if (role) userUpdate.role = role;
     if (password) userUpdate.password = await bcrypt.hash(password, 10);
     await User.findByIdAndUpdate(employee.userId, userUpdate);
 
     return res.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === 11000) {
       return res.status(400).json({ error: "Email already exists" });
     }

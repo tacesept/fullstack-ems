@@ -1,4 +1,4 @@
-import { model, models, Schema } from "mongoose";
+import mongoose, { model, models, Schema } from "mongoose";
 
 const payslipSchema = new Schema(
   {
@@ -19,6 +19,6 @@ const payslipSchema = new Schema(
   },
 );
 
-const Payslip = models.Payslip || model("Payslip", payslipSchema);
+const Payslip = mongoose.models.Payslip || model("Payslip", payslipSchema);
 
 export default Payslip;

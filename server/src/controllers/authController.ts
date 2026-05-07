@@ -24,7 +24,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Not authorized as employee" });
     }
 
-    const isValid = await bcrypt.compare(password.user.password);
+    const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
@@ -35,7 +35,7 @@ export const login = async (req: Request, res: Response) => {
       email: user.email,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
       expiresIn: "7d",
     });
 
